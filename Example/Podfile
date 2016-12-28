@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'CollectionLayout_Example' do
+  pod 'CollectionLayout', :path => '../'
+
+  target 'CollectionLayout_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
