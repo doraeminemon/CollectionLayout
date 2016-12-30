@@ -1,24 +1,27 @@
+<img src="Image/screenshot.png" width="375">
+
 # CollectionLayout
 
-[![CI Status](http://img.shields.io/travis/Do Son/CollectionLayout.svg?style=flat)](https://travis-ci.org/Do Son/CollectionLayout)
-[![Version](https://img.shields.io/cocoapods/v/CollectionLayout.svg?style=flat)](http://cocoapods.org/pods/CollectionLayout)
-[![License](https://img.shields.io/cocoapods/l/CollectionLayout.svg?style=flat)](http://cocoapods.org/pods/CollectionLayout)
-[![Platform](https://img.shields.io/cocoapods/p/CollectionLayout.svg?style=flat)](http://cocoapods.org/pods/CollectionLayout)
+As the norm of apps nowadays is actually a scrollView rather a view, the default system of Apple to build a view using .xib and AutoLayout has rather become clunky and low performance. Furthermore, the manual way of building layout has proven to be a problem when it comes to process require fast iteration and less error-prone ( mostly due to communication between designer-developer ).
 
-## Example
+Inspired by this talk about [backend-driven native UIs](https://www.facebook.com/atscaleevents/videos/1708052886134475/) by [John Sundell](https://github.com/JohnSundell), I'm trying to recreate a system of my own by following his words : using a collection view in order to allow a block-based view creation, allow for a higher performance and easier to use layout design option.
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+However I did some improvement of my own, such as abstracting away the view layout logic into a protocol, allowing Views to layout subview in a similar way a collectionView laying out its cells. This allows view component to be nested inside each other, such as StackViewComponent ( allow stacking component ) and ScrollViewComponent ( allow adding views in a scrollView ).
 
-## Requirements
+The cells are also current route all the logic ( delegate, datasource ) from the collection cells into the main view controller. Similar component types will need to separate its behavior by tag.
 
-## Installation
+The current state of project is just a proof of concept, rather than a complete implementation.
 
-CollectionLayout is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+## Usage
 
-```ruby
-pod "CollectionLayout"
-```
+Clone and run the workspace file Example folder.
+
+Further documentation will be added later on, should this library became more mature.
+
+## Further improvement
+
+ - JSON conversion
+ - Tests and documentation sample
 
 ## Author
 
