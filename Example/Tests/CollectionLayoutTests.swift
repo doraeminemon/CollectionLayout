@@ -7,3 +7,15 @@
 //
 
 import Foundation
+import XCTest
+import CollectionLayout
+
+class CollectionLayoutTests : XCTestCase {
+  func testInit(){
+    
+  }
+  
+  func testAddComponents(){
+    
+  }
+}

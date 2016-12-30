@@ -11,10 +11,23 @@ import UIKit
 
 public class CollectionLayout: UICollectionView, UICollectionViewDataSource, UICollectionViewDelegate , ComponentLayoutDelegate  {
 
-  public var components: [ViewComponent] = []
+  public var components: [ViewComponent] = [] {
+    didSet {
+      reloadData()
+    }
+  }
   
-  func viewDidLoad() {
-      (collectionViewLayout as! ComponentLayout).delegate = self
+  var componentLayout : ComponentLayout {
+    return (collectionViewLayout as! ComponentLayout)
+  }
+  
+  required public init?(coder aDecoder: NSCoder) {
+    super.init(coder : aDecoder)
+    collectionViewLayout = ComponentLayout()
+    (collectionViewLayout as! ComponentLayout).delegate = self
+    delegate = self
+    dataSource = self
+    register(ComponentCollectionViewCell.self, forCellWithReuseIdentifier: "componentCell")
   }
   
   public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -23,9 +36,6 @@ public class CollectionLayout: UICollectionView, UICollectionViewDataSource, UIC
     return cell
   }
   
-  func printButtonName(_ sender:UIButton){
-    print("buttonName: \(sender.description)")
-  }
   
   public func numberOfSections(in collectionView: UICollectionView) -> Int {
     return 1
@@ -35,14 +45,14 @@ public class CollectionLayout: UICollectionView, UICollectionViewDataSource, UIC
     return components.count
   }
   
-  func preferedComponentSize(at indexPath: IndexPath) -> CGSize {
-    let item = components[indexPath.item]
-    var actualSize = item.preferedViewSize
-    if item.layoutAttributes.contains(.fullWidth) {
-      actualSize = CGSize(width: bounds.width, height: item.preferedViewSize.height)
-    }
-    item.sizeDetermined(actualSize)
-    return actualSize //?? CGSizeZero
+  
+  func component(at indexPath: IndexPath) -> ViewComponent {
+    return components[indexPath.item]
+  }
+  
+  public override func reloadData() {
+    componentLayout.resetCache()
+    super.reloadData()
   }
 }
 

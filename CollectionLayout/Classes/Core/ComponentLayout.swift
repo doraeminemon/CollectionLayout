@@ -10,32 +10,37 @@ import Foundation
 import UIKit
 
 protocol ComponentLayoutDelegate {
-  func preferedComponentSize(at indexPath:IndexPath) -> CGSize
+  func component(at indexPath:IndexPath) -> ViewComponent
 }
 
 class ComponentLayout : UICollectionViewLayout {
   
   var delegate: ComponentLayoutDelegate?
   var contentHeight: CGFloat = 0
+  var subviewDelegate: SubviewLayoutDelegate = VerticalSubviewLayout()
   
   fileprivate var cache:[UICollectionViewLayoutAttributes] = []
   
+  
   override func prepare() {
     if cache.isEmpty {
+      var horizontalOffset: CGFloat = 0
+      var verticalOffset: CGFloat = 0
+      var components : [ViewComponent] = []
       contentHeight = 0
       for section in 0 ..< collectionView!.numberOfSections {
         for item in 0 ..< collectionView!.numberOfItems(inSection: section) {
           let indexPath = IndexPath(item: item, section: section)
-          let itemSizeAtIndexPath = delegate!.preferedComponentSize(at: indexPath)
           let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+          let component = delegate!.component(at: indexPath)
+          components.append(component)
+      
+          attributes.frame = subviewDelegate.nextFrame(component: component, superViewSize: collectionView!.frame.size)
           
-          let x = (collectionView!.bounds.width - itemSizeAtIndexPath.width) / 2
-          attributes.frame = CGRect(origin: CGPoint(x: x, y: contentHeight)
-            , size: itemSizeAtIndexPath )
           cache.append(attributes)
-          contentHeight += itemSizeAtIndexPath.height
         }
       }
+      contentHeight = subviewDelegate.contentViewFrameSize(components: components, superViewSize: collectionView!.frame.size).height
     }
     super.prepare()
   }
@@ -54,7 +59,10 @@ class ComponentLayout : UICollectionViewLayout {
     return layoutAttributes
   }
   
+  
+  
   func resetCache(){
     cache = []
   }
+  
 }

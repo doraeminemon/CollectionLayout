@@ -7,3 +7,11 @@
 //
 
 import Foundation
+import XCTest
+import CollectionLayout
+
+class ImageViewComponentTests : XCTestCase {
+  func testInit(){
+    let imageViewComponent = ImageViewComponent(preferedViewSize: CGSize(width: 200, height: 200))
+  }
+}
