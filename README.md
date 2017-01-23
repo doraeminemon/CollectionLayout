@@ -10,7 +10,7 @@ However I did some improvement of my own, such as abstracting away the view layo
 
 The cells are also current route all the logic ( delegate, datasource ) from the collection cells into the main view controller. Similar component types will need to separate its behavior by tag.
 
-The current state of project is just a proof of concept, rather than a complete implementation.
+The current state of project is just a proof of concept, rather than a complete implementation.For a more complete layout option, try [Render](https://github.com/alexdrone/Render) by Alexdrone, [Few.swift](https://github.com/joshaber/Few.swift) or [Facebook/Yoga](https://github.com/facebook/yoga)
 
 ## Usage
 
